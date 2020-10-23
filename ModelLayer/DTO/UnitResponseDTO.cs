@@ -6,9 +6,9 @@ namespace ModelLayer.DTO
 {
     public class UnitResponseDTO
     {
-        private Object value { get; set; }
-        private String message { get; set; }
-        private int statusCode { get; set; }
+        public Object value { get; set; }
+        public String message { get; set; }
+        public int statusCode { get; set; }
 
         public UnitResponseDTO(double value, String message, int statusCode)
         {

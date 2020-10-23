@@ -15,6 +15,6 @@ namespace ModelLayer
         public String SubunitName { get; set; }
 
         [Required]
-        public float SubUnitsValue { get; set; }
+        public double SubUnitsValue { get; set; }
     }
 }

@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ModelLayer.DTO
 {
     public class UnitsConversionDTO
     {
-        private Double value { get; set; }
-        private Subunit firstUnitType { get; set; }
-        private Subunit secondUnitType { get; set; }
+        [Required]
+        public String firstUnitType { get; set; }
+        [Required]
+        public String secondUnitType { get; set; }
+        public double value { get; set; }
 
-        public UnitsConversionDTO(double value, Subunit firstUnitType, Subunit secondUnitType)
+
+        public UnitsConversionDTO(float value, String firstUnitType, String secondUnitType)
         {
-            this.value = value;
             this.firstUnitType = firstUnitType;
             this.secondUnitType = secondUnitType;
+            this.value = value;
+        }
+        public UnitsConversionDTO()
+        {
         }
     }
 }

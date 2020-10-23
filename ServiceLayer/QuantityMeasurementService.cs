@@ -1,4 +1,4 @@
-﻿using ModelLayer;
+﻿using ModelLayer.DTO;
 using RepositoryLayer;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ namespace ServiceLayer
         {
             this.QuantityMeasurementRepository = quantityMeasurementRepository;
         }
+
         public List<String> getMainUnit()
         {
             return this.QuantityMeasurementRepository.getMainUnit();
@@ -20,6 +21,11 @@ namespace ServiceLayer
         public List<String> getSubUnits(string unit)
         {
             return this.QuantityMeasurementRepository.getSubUnits(unit);
+        }
+
+        public UnitResponseDTO getConvertedValue(UnitsConversionDTO unit)
+        {
+            return this.QuantityMeasurementRepository.getConvertedValue(unit);
         }
     }
 }

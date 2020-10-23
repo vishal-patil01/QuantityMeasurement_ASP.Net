@@ -46,8 +46,8 @@ namespace QuantityMeasurement.Migrations
                     b.Property<int?>("MainUnitsId")
                         .HasColumnType("int");
 
-                    b.Property<float>("SubUnitsValue")
-                        .HasColumnType("real");
+                    b.Property<double>("SubUnitsValue")
+                        .HasColumnType("float");
 
                     b.Property<string>("SubunitName")
                         .IsRequired()

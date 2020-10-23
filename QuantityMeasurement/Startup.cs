@@ -32,7 +32,17 @@ namespace QuantityMeasurement
         {
             String ConnctionString = Configuration.GetConnectionString("DatabaseConnection");
             services.AddDbContext<QuantityMeasurementDBContext>(opt => opt.UseSqlServer(ConnctionString, b => b.MigrationsAssembly("QuantityMeasurement")));
-            services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy",
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin()
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod();
+                                  });
+            });
+            services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<IQuantityMeasurementRepository, QuantityMeasurementRepository>();
             services.AddTransient<IQuantityMeasurementService, QuantityMeasurementService>();
             services.AddSwaggerGen(swagger =>
@@ -78,7 +88,7 @@ namespace QuantityMeasurement
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;
             });
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

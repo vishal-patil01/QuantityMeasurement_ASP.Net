@@ -10,8 +10,8 @@ using ModelLayer;
 namespace QuantityMeasurement.Migrations
 {
     [DbContext(typeof(QuantityMeasurementDBContext))]
-    [Migration("20201023025828_MainUnitRelationWithSubUnits")]
-    partial class MainUnitRelationWithSubUnits
+    [Migration("20201023144247_Main_Units_Relation_With_SubUnits")]
+    partial class Main_Units_Relation_With_SubUnits
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,8 +48,8 @@ namespace QuantityMeasurement.Migrations
                     b.Property<int?>("MainUnitsId")
                         .HasColumnType("int");
 
-                    b.Property<float>("SubUnitsValue")
-                        .HasColumnType("real");
+                    b.Property<double>("SubUnitsValue")
+                        .HasColumnType("float");
 
                     b.Property<string>("SubunitName")
                         .IsRequired()

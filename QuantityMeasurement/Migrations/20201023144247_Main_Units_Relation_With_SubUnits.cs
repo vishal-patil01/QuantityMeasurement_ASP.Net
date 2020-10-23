@@ -2,7 +2,7 @@
 
 namespace QuantityMeasurement.Migrations
 {
-    public partial class MainUnitRelationWithSubUnits : Migration
+    public partial class Main_Units_Relation_With_SubUnits : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +17,13 @@ namespace QuantityMeasurement.Migrations
             migrationBuilder.DropColumn(
                 name: "MainUnitId",
                 table: "Subunits");
+
+            migrationBuilder.AlterColumn<double>(
+                name: "SubUnitsValue",
+                table: "Subunits",
+                nullable: false,
+                oldClrType: typeof(float),
+                oldType: "real");
 
             migrationBuilder.AddColumn<int>(
                 name: "MainUnitsId",
@@ -50,6 +57,13 @@ namespace QuantityMeasurement.Migrations
             migrationBuilder.DropColumn(
                 name: "MainUnitsId",
                 table: "Subunits");
+
+            migrationBuilder.AlterColumn<float>(
+                name: "SubUnitsValue",
+                table: "Subunits",
+                type: "real",
+                nullable: false,
+                oldClrType: typeof(double));
 
             migrationBuilder.AddColumn<int>(
                 name: "MainUnitId",

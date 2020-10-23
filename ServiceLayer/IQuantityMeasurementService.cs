@@ -1,4 +1,4 @@
-﻿using ModelLayer;
+﻿using ModelLayer.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -8,5 +8,7 @@ namespace ServiceLayer
     {
         List<String> getMainUnit();
         List<String> getSubUnits(string unit);
+        public UnitResponseDTO getConvertedValue(UnitsConversionDTO unit);
+
     }
 }
