@@ -11,5 +11,6 @@ namespace ModelLayer
 
         [Column(TypeName = "varchar(200)"), MaxLength(50), Required]
         public String MainUnitName { get; set; }
+        public List<Subunit> SubUnits { get; set; }
     }
 }

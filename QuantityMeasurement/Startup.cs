@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ModelLayer;
+using RepositoryLayer;
+using ServiceLayer;
 
 namespace QuantityMeasurement
 {
@@ -30,6 +32,8 @@ namespace QuantityMeasurement
             String ConnctionString = Configuration.GetConnectionString("DatabaseConnection");
             services.AddDbContext<QuantityMeasurementDBContext>(opt => opt.UseSqlServer(ConnctionString, b => b.MigrationsAssembly("QuantityMeasurement")));
             services.AddControllers();
+            services.AddTransient<IQuantityMeasurementRepository, QuantityMeasurementRepository>();
+            services.AddTransient<IQuantityMeasurementService, QuantityMeasurementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +44,6 @@ namespace QuantityMeasurement
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
