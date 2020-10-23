@@ -21,7 +21,7 @@ namespace RepositoryLayer
         List<String> IQuantityMeasurementRepository.getSubUnits(string unit)
         {
             return ApplicationDbContext.MainUnits.
-                Where(p => p.MainUnitName.Equals(unit))
+                Where(p => p.MainUnitName.Equals(unit.ToUpper()))
                 .Select(A => A.SubUnits.Select(a => a.SubunitName))
                 .ToList()
                 .Cast<List<String>>()
