@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ModelLayer;
 using ModelLayer.DTO;
@@ -18,18 +19,22 @@ namespace QuantityMeasurement.Controllers
     {
         private readonly ILogger<QuantityMeasurementController> _logger;
         IQuantityMeasurementService quantityMeasurementService;
+        IConfiguration configuration;
 
-        public QuantityMeasurementController(ILogger<QuantityMeasurementController> logger, IQuantityMeasurementService  quantityMeasurementService)
+        public QuantityMeasurementController(ILogger<QuantityMeasurementController> logger, IQuantityMeasurementService  quantityMeasurementService, IConfiguration configuration)
         {
             _logger = logger;
             this.quantityMeasurementService = quantityMeasurementService;
+            this.configuration = configuration;
         }
 
         [HttpGet]
         [Route("/unit/type")]
         public List<String> GetMainUnits()
         {
-           return this.quantityMeasurementService.getMainUnit();
+            Console.WriteLine(Environment.GetEnvironmentVariable("ConnectionStrings"));
+            _logger.LogInformation("-----------------Connection String in Environment variables : --------   =  "+configuration.GetSection("ConnectionStrings").GetSection("DatabaseConnection").Value);
+            return this.quantityMeasurementService.getMainUnit();
         }
 
         [HttpGet]
