@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ModelLayer;
+using QuantityMeasurement.Config;
 using RepositoryLayer;
 using ServiceLayer;
 
@@ -40,6 +41,7 @@ namespace QuantityMeasurement
             services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<IQuantityMeasurementRepository, QuantityMeasurementRepository>();
             services.AddTransient<IQuantityMeasurementService, QuantityMeasurementService>();
+            services.AddConsulConfig(Configuration);
             services.AddSwaggerGen(swagger =>
             {
                 // This is to generate the Default UI of Swagger Documentation
@@ -60,6 +62,7 @@ namespace QuantityMeasurement
            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -67,9 +70,8 @@ namespace QuantityMeasurement
                 app.UseDeveloperExceptionPage();
             }
 
-
             app.UseRouting();
-
+            app.UseConsul(Configuration);
             app.UseAuthorization();
             app.UseSwagger(c =>
             {
