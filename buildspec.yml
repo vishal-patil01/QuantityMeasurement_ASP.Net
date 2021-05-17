@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  pre_build:
+      commands:
+        - echo login in aws ECR
+        - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 497559131610.dkr.ecr.us-east-1.amazonaws.com
+        - echo login success                  
+  build:
+    commands:
+       - echo build started...
+       - cd QuantityMeasurement
+       - echo present directory
+       - pwd
+       - docker build -t quantity_measurement_api -f Dockerfile ../
+       - echo tagging image
+       - docker tag quantity_measurement_api:latest 497559131610.dkr.ecr.us-east-1.amazonaws.com/quantity_measurement_api:latest      
+  post_build:
+    commands:
+       - docker push 497559131610.dkr.ecr.us-east-1.amazonaws.com/quantity_measurement_api:latest
+       - echo writing image defination file
+       - printf '[{"name":"quantitymeasurement-conatiner","imageUri":"497559131610.dkr.ecr.us-east-1.amazonaws.com/quantity_measurement_api:latest"}]' > imagedefinitions.json
+       - cat imagedefinitions.json
+artifacts:
+  files: '**/*'
+  discard-paths: yes
