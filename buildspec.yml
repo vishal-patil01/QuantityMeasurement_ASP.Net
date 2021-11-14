@@ -5,21 +5,23 @@ phases:
       commands:
         - echo login in aws ECR
         - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 497559131610.dkr.ecr.us-east-1.amazonaws.com
+	- REPOSITORY_URI=497559131610.dkr.ecr.us-east-1.amazonaws.com
         - echo login success                  
   build:
     commands:
        - echo build started...
-       - cd QuantityMeasurement
-       - echo present directory
-       - pwd
-       - docker build -t quantity_measurement_api -f Dockerfile ../
-       - echo tagging image
-       - docker tag quantity_measurement_api:latest 497559131610.dkr.ecr.us-east-1.amazonaws.com/quantity_measurement_api:latest      
+       - dotnet restore ./QuantityMeasurement/QuantityMeasurement.csproj
+       - dotnet build ./QuantityMeasurement/QuantityMeasurement.csproj -c Release
+       - dotnet publish ./QuantityMeasurement/QuantityMeasurement.csproj -c Release
+       - echo Building the Docker image...
+       - docker build -t $REPOSITORY_URI:quantity_measurement_api-${CODEBUILD_BUILD_NUMBER} -f Dockerfile ./QuantityMeasurement/.
   post_build:
     commands:
-       - docker push 497559131610.dkr.ecr.us-east-1.amazonaws.com/quantity_measurement_api:latest
-       - echo writing image defination file
-       - printf '[{"name":"quantitymeasurement-conatiner","imageUri":"497559131610.dkr.ecr.us-east-1.amazonaws.com/quantity_measurement_api:latest"}]' > imagedefinitions.json
+       - echo Build completed on `date`
+       - echo Pushing the Docker images...
+       - docker push $REPOSITORY_URI:quantity_measurement_api${CODEBUILD_BUILD_NUMBER}
+       - echo Writing image definitions file...
+       - printf '[{"name":"IL_ECS_AlincSupportCtr_DU","imageUri":"%s"}]' $REPOSITORY_URI:quantity_measurement_api-${CODEBUILD_BUILD_NUMBER} > imagedefinitions.json
        - cat imagedefinitions.json
 artifacts:
   files: '**/*'
