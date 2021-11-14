@@ -1,0 +1,14 @@
+version: 0.0  
+os: windows  
+files:  
+  - source: ./build_output/QuantityMeasurement_API
+    destination: D:\Applicationfiles
+hooks:
+  BeforeInstall:
+    - location: .\codedeploy-scripts\killprocess.bat
+      timeout: 900
+      runas: administrator
+  AfterInstall:  
+    - location: .\codedeploy-scripts\startprocess.bat  
+      timeout: 900  
+      runas: administrator

@@ -1,0 +1,21 @@
+version: 0.2
+
+phases: 
+  install: 
+    runtime-versions: 
+      dotnet: 3.1
+  pre_build:
+    commands:
+      - echo Welcome to QuantityMeasurement_API deployment...
+      - dotnet restore ./QuantityMeasurement/QuantityMeasurement.csproj
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet build ./QuantityMeasurement/QuantityMeasurement.csproj -c Release
+      - echo Publishing the dll
+      - dotnet publish -c Release  /p:MicrosoftNETPlatformLibrary=Microsoft.NETCore.App -o ./build_output/QuantityMeasurement_API ./QuantityMeasurement/QuantityMeasurement.csproj
+artifacts:
+  files:
+    - build_output/**/*
+    - codedeploy-scripts/**/*
+    - appspec.yml
