@@ -2,7 +2,7 @@ version: 0.0
 os: windows  
 files:  
   - source: ./build_output/QuantityMeasurement_API
-    destination: D:\Applicationfiles
+    destination: C:\Users\Administrator\Desktop\Sites\QuantityMeasurementAPI
 hooks:
   BeforeInstall:
     - location: .\codedeploy-scripts\killprocess.bat

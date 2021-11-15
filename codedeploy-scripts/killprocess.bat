@@ -1,1 +1,1 @@
-cmd /c "%systemroot%\system32\inetsrv\appcmd list apppool /name:QuantityMeasurement /state:Started /xml | %systemroot%\system32\inetsrv\appcmd stop apppool /in| exit 0"
+cmd /c "%systemroot%\system32\inetsrv\appcmd list apppool /name:QuantityMeasurementAPI /state:Started /xml | %systemroot%\system32\inetsrv\appcmd stop apppool /in| exit 0"
